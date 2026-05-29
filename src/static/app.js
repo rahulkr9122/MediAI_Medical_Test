@@ -101,7 +101,8 @@ analyzeButton.addEventListener('click', async () => {
       analysisResult.innerHTML = 'Fill in all fields and click "Analyze with AI" to get analysis and doctor recommendations.';
     });
   } catch (error) {
-    analysisResult.textContent = 'Unable to reach the AI service. Check your server and API key.';
+    console.error("Frontend caught an error:", error);
+    analysisResult.textContent = 'Error: The server failed to respond properly. Check your Render logs or the browser console for more details.';
   }
 });
 
