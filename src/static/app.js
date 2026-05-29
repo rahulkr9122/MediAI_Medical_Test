@@ -136,3 +136,14 @@ async function loadHistory() {
 }
 
 loadHistory();
+
+// Add custom branding and identification for Rahul
+const developerBadge = document.createElement('div');
+developerBadge.innerHTML = '✨ Engineered by <strong>Rahul</strong>';
+developerBadge.style.cssText = 'text-align: center; margin-top: 2rem; padding: 1.5rem 0; color: #b8c1d4; font-size: 0.95rem; border-top: 1px solid #24304f; font-weight: 500; letter-spacing: 0.5px;';
+const appShell = document.querySelector('.app-shell');
+if (appShell) {
+  appShell.appendChild(developerBadge);
+} else {
+  document.body.appendChild(developerBadge);
+}

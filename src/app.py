@@ -10,6 +10,10 @@ load_dotenv()
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 
+@app.errorhandler(Exception)
+def handle_exception(e):
+    return jsonify({"error": f"Server Error: {str(e)}"}), 500
+
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 HISTORY_PATH = os.path.join(APP_ROOT, "history.json")
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434/v1/completions")
@@ -248,9 +252,9 @@ def analyze():
         file_bytes = file.read()
         
         if filename.endswith(".pdf"):
-            import PyPDF2
-            import io
             try:
+                import PyPDF2
+                import io
                 reader = PyPDF2.PdfReader(io.BytesIO(file_bytes))
                 pdf_text = ""
                 for page in reader.pages:

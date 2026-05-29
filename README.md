@@ -1,6 +1,6 @@
-# MediScan AI
+# MediScan AI (by Rahul)
 
-A Python-powered medical report analyzer with AI-backed recommendations, specialist suggestions, and history tracking.
+A Python-powered medical report analyzer with AI-backed recommendations, specialist suggestions, and history tracking. Proudly engineered by Rahul.
 
 ## What this app does
 
