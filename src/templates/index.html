@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MediScan AI</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header>
+        <h1>MediScan AI</h1>
+        <p>Analyze medical reports, get next-step guidance, and find nearby specialists.</p>
+      </header>
+
+      <nav>
+        <button data-tab="analyze" class="active">Analyze Report</button>
+        <button data-tab="history">History</button>
+      </nav>
+
+      <main>
+        <section id="tab-analyze" class="tab-panel active">
+          <div class="panel-grid">
+            <div class="card">
+              <h2>Medical Report Analysis</h2>
+              <label>
+                City (to find doctors/hospitals)
+                <input type="text" id="reportCity" placeholder="e.g., New York, San Francisco, Mumbai" />
+              </label>
+              <label>
+                Analysis Language
+                <select id="analysisLanguage">
+                  <option value="English">English</option>
+                  <option value="Hindi">Hindi (हिंदी)</option>
+                </select>
+              </label>
+              <label>
+                Paste or upload medical report
+                <textarea id="reportText" placeholder="Paste a blood report, lab result, or medical summary..."></textarea>
+              </label>
+              <div class="upload-row">
+                <input type="file" id="reportFile" accept=".txt,.pdf,.png,.jpg,.jpeg,.bmp,.tiff" />
+                <button id="sampleButton" class="secondary">Load Sample Report</button>
+              </div>
+              <button id="analyzeButton" class="primary">Analyze with AI</button>
+            </div>
+            <div class="card result-card">
+              <h2>AI Analysis & Recommendations</h2>
+              <div id="analysisResult" class="result-output">Fill in all fields and click "Analyze with AI" to get analysis and doctor recommendations.</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-history" class="tab-panel">
+          <div class="card">
+            <h2>Past analyses</h2>
+            <div id="historyList" class="history-list">Loading history...</div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
