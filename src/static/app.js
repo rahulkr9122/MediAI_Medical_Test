@@ -71,7 +71,17 @@ analyzeButton.addEventListener('click', async () => {
       method: 'POST',
       body: formData,
     });
-    const result = await response.json();
+
+    let result;
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      result = await response.json();
+    } else {
+      const text = await response.text();
+      console.error("Non-JSON response from server:", text);
+      throw new Error(`Server returned ${response.status} (Not JSON). This usually means a timeout or server crash. Check Render logs!`);
+    }
+
     if (!response.ok) {
       analysisResult.textContent = result.error || 'Analysis failed.';
       return;
@@ -102,7 +112,7 @@ analyzeButton.addEventListener('click', async () => {
     });
   } catch (error) {
     console.error("Frontend caught an error:", error);
-    analysisResult.textContent = 'Error: The server failed to respond properly. Check your Render logs or the browser console for more details.';
+    analysisResult.textContent = error.message || 'Error: The server failed to respond properly. Check your Render logs or the browser console for more details.';
   }
 });
 

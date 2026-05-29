@@ -28,4 +28,4 @@ ENV PYTHONUNBUFFERED=1
 EXPOSE 5000
 
 # Start Gunicorn (use the PORT environment variable if provided by Render)
-CMD sh -c "gunicorn --bind 0.0.0.0:${PORT:-5000} app:app"
+CMD sh -c "gunicorn --bind 0.0.0.0:${PORT:-5000} --timeout 120 app:app"
