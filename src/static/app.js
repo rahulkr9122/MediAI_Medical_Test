@@ -57,7 +57,14 @@ analyzeButton.addEventListener('click', async () => {
     return;
   }
 
-  analysisResult.textContent = 'Analyzing report and finding doctors...';
+  analysisResult.innerHTML = `
+    <div class="scanner-container">
+      <div class="scanner-document">
+        <div class="scanner-line"></div>
+        <div class="scanner-text">Scanning...</div>
+      </div>
+    </div>
+  `;
   const formData = new FormData();
   formData.append('reportText', text);
   formData.append('city', city);
