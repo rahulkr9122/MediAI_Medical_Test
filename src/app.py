@@ -49,12 +49,19 @@ def save_history(history):
         json.dump(history, handle, indent=2, ensure_ascii=False)
 
 
-def extract_specialist_from_response(response_text):
-    """Extract specialist name from LLM response."""
-    for specialist in SPECIALIST_TYPES.keys():
-        if specialist.lower() in response_text.lower():
-            return specialist
-    return "Cardiologist"
+def parse_ai_output(response_text):
+    """Extract structured fields from the AI's response."""
+    specialist = "General Physician"
+    severity = "Unknown"
+    for line in response_text.split('\n'):
+        if "**Recommended Specialist:**" in line:
+            # Extracts "Cardiologist" from "**Recommended Specialist:** Cardiologist"
+            specialist = line.split(":", 1)[1].strip()
+        elif "**Issue Severity Level:**" in line:
+            # Extracts "High" from "**Issue Severity Level:** High"
+            severity = line.split(":", 1)[1].strip()
+            
+    return specialist, severity
 
 
 def get_prompt(report_text, city, language="English"):
@@ -321,8 +328,7 @@ def analyze():
     if "NOT_A_MEDICAL_REPORT" in analysis:
         return jsonify({"error": "The provided document does not appear to be a valid medical report. Please upload a medical document."}), 400
 
-    specialist = extract_specialist_from_response(analysis)
-    severity = "Urgent" if "critical" in analysis.lower() else "Monitor"
+    specialist, severity = parse_ai_output(analysis)
     
     history = load_history()
     entry = {
